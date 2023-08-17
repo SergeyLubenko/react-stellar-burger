@@ -1,0 +1,28 @@
+.burgerIngredients {
+  display: flex;
+  flex-direction: column;
+  margin: 40px 0 40px;
+  width: 600px;
+}
+
+.tab {
+  display: flex;
+  padding: 20px 0 20px;
+}
+
+.scroll_ingredients {
+  display: flex;
+  flex-direction: column;
+  max-height: 600px;
+  overflow-y: scroll;
+  scroll-behavior: auto;
+}
+
+.list {
+  display: flex;
+  gap: 32px 24px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding-left: 0;
+  
+}
