@@ -1,4 +1,4 @@
-import style from "./burger-constructor.module.css";
+import style from "./BurgerConstructor.module.css";
 import {
   DragIcon,
   CurrencyIcon,
@@ -8,8 +8,8 @@ import {
 import PropTypes from "prop-types";
 import { ingredientPropType } from "../../utils/prop-types";
 import { useState, useMemo } from "react";
-import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
+import Modal from "../Modal/Modal";
+import OrderDetails from "../OrderDetails/OrderDetails ";
 
 function BurgerConstructor({ data }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,7 +71,7 @@ function BurgerConstructor({ data }) {
           </div>
         </>
       )}
-      
+
       <div className={`pt-10 pr-8 ${style.order}`}>
         <div className={style.price}>
           <p className="text text_type_digits-medium ">{price}</p>

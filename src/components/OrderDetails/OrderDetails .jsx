@@ -1,4 +1,4 @@
-import style from "./order-details.module.css";
+import style from "./OrderDetails.module.css";
 import img from "../../images/img.svg";
 
 function OrderDetails() {

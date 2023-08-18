@@ -1,4 +1,4 @@
-import style from "./modal-overlay.module.css";
+import style from "./ModalOverlay.module.css";
 import PropTypes from "prop-types";
 
 function ModalOverlay({ closePopup }) {

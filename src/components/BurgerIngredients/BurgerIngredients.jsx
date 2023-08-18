@@ -1,11 +1,11 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { ingredientPropType } from "../../utils/prop-types";
-import IngredientItem from "../ingredient/ingredient";
-import style from "./burger-ingredients.module.css";
-import Modal from "../modal/modal";
+import IngredientItem from "../Ingredient/Ingredient";
+import style from "./BurgerIngredients.module.css";
+import Modal from "../Modal/Modal";
 import PropTypes from "prop-types";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
 function BurgerIngredients({ data }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +27,6 @@ function BurgerIngredients({ data }) {
   const sauce = data.filter((myIngredient) => myIngredient.type === "sauce");
   const main = data.filter((myIngredient) => myIngredient.type === "main");
 
-  
   const tabs = {
     bun: document.querySelector("#bun"),
     sauce: document.querySelector("#sauce"),
