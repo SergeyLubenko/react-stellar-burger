@@ -5,10 +5,10 @@ import {
 import style from "./Ingredient.module.css";
 import { ingredientPropType } from "../../utils/prop-types";
 
-const IngredientItem = ({ DataIngredients, current }) => {
+const IngredientItem = ({ ingredients, current }) => {
   return (
     <>
-      <li className={style.li} onClick={() => current(DataIngredients)}>
+      <li className={style.li} onClick={() => current(ingredients)}>
         <Counter
         className={style.counter}
           count={1}
@@ -16,17 +16,17 @@ const IngredientItem = ({ DataIngredients, current }) => {
           extraClass="m-1"
         />
         <img
-          src={DataIngredients.image}
-          alt={`Изображение ${DataIngredients.name}`}
+          src={ingredients.image}
+          alt={`Изображение ${ingredients.name}`}
         />
         <div className={`pb-2 pt-2 ${style.price}`}>
           <p className="text text_type_digits-default">
-            {DataIngredients.price}
+            {ingredients.price}
           </p>
           <CurrencyIcon type="primary" />
         </div>
         <p className={`text text_type_main-default ${style.title}`}>
-          {DataIngredients.name}
+          {ingredients.name}
         </p>
       </li>
     </>
@@ -34,7 +34,7 @@ const IngredientItem = ({ DataIngredients, current }) => {
 };
 
 IngredientItem.propTypes = {
-  DataIngredients: ingredientPropType.isRequired,
+  ingredients: ingredientPropType.isRequired,
 };
 
 export default IngredientItem;

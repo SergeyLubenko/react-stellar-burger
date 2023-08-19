@@ -62,7 +62,7 @@ function BurgerIngredients({ data }) {
             {bun.map((item) => (
               <IngredientItem
                 key={item._id}
-                DataIngredients={item}
+                ingredients={item}
                 current={handleOpenModal}
               />
             ))}
@@ -74,7 +74,7 @@ function BurgerIngredients({ data }) {
             {sauce.map((item) => (
               <IngredientItem
                 key={item._id}
-                DataIngredients={item}
+               ingredients={item}
                 current={handleOpenModal}
               />
             ))}
@@ -86,7 +86,7 @@ function BurgerIngredients({ data }) {
             {main.map((item) => (
               <IngredientItem
                 key={item._id}
-                DataIngredients={item}
+                ingredients={item}
                 current={handleOpenModal}
               />
             ))}
