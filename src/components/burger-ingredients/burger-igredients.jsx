@@ -1,11 +1,11 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { ingredientPropType } from "../../utils/prop-types";
-import IngredientItem from "../Ingredient/Ingredient";
-import style from "./BurgerIngredients.module.css";
-import Modal from "../Modal/Modal";
+import IngredientItem from "../ingredient/ingredient";
+import style from "./burger-ingredients.module.css";
+import Modal from "../modal/modal";
 import PropTypes from "prop-types";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 function BurgerIngredients({ data }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -74,7 +74,7 @@ function BurgerIngredients({ data }) {
             {sauce.map((item) => (
               <IngredientItem
                 key={item._id}
-               ingredients={item}
+                ingredients={item}
                 current={handleOpenModal}
               />
             ))}

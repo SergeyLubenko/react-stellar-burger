@@ -1,4 +1,4 @@
-import style from "./BurgerConstructor.module.css";
+import style from "./burger-constructor.module.css";
 import {
   DragIcon,
   CurrencyIcon,
@@ -8,8 +8,8 @@ import {
 import PropTypes from "prop-types";
 import { ingredientPropType } from "../../utils/prop-types";
 import { useState, useMemo } from "react";
-import Modal from "../Modal/Modal";
-import OrderDetails from "../OrderDetails/OrderDetails ";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details ";
 
 function BurgerConstructor({ data }) {
   const [isOpen, setIsOpen] = useState(false);

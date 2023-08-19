@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import ModalOverlay from "../modal-overlay/modal-overlay";
 import ReactDOM from "react-dom";
-import style from "./Modal.module.css";
+import style from "./modal.module.css";
 import { useEffect } from "react";
 
 const root = document.querySelector("#root");
@@ -18,7 +18,7 @@ function Modal({ children, closePopup }) {
     return () => {
       document.removeEventListener("keydown", closePopupEsc);
     };
-  },[]);
+  },[closePopup]);
 
   return ReactDOM.createPortal(
     <>

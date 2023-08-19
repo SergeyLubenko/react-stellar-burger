@@ -1,8 +1,8 @@
-import styles from "./App.module.css";
+import styles from "./app.module.css";
 import { useState, useEffect } from "react";
-import AppHeader from "../AppHeader/AppHeader ";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
+import AppHeader from "../app-header/app-header ";
+import BurgerIngredients from "../burger-ingredients/burger-igredients";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { getDataIngredients } from "../../utils/api";
 
 function App() {
