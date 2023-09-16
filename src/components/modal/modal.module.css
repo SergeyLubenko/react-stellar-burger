@@ -10,7 +10,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(76, 76, 255, 0.20);
+  border: 1px solid rgba(76, 76, 255, 0.2);
   z-index: 10;
 }
 
@@ -25,7 +25,7 @@
   padding: 0;
   cursor: pointer;
   opacity: 1;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .btn:hover {

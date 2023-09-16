@@ -1,4 +1,3 @@
-
 import PropTypes from "prop-types";
 
 export const ingredientPropType = PropTypes.shape({
@@ -12,4 +11,8 @@ export const ingredientPropType = PropTypes.shape({
   carbohydrates: PropTypes.number.isRequired,
   calories: PropTypes.number.isRequired,
   image_large: PropTypes.string.isRequired,
+});
+
+export const orderPropType = PropTypes.shape({
+  order: PropTypes.number.isRequired,
 });

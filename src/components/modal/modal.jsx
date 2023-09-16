@@ -5,38 +5,39 @@ import ReactDOM from "react-dom";
 import style from "./modal.module.css";
 import { useEffect } from "react";
 
-const root = document.querySelector("#root");
+
+const root = document.querySelector('#modals');
 
 function Modal({ children, closePopup }) {
-  useEffect(() => {
-    function closePopupEsc(evt) {
-      if (evt.key === "Escape") {
-        closePopup();
-      }
-    }
-    document.addEventListener("keydown", closePopupEsc);
-    return () => {
-      document.removeEventListener("keydown", closePopupEsc);
-    };
-  },[closePopup]);
+    useEffect(() => {
+        function closeOnEsc(evt) {
+            if (evt.key === 'Escape') {
+                closePopup();
+            }
+        }
+        document.addEventListener('keydown', closeOnEsc);
+        return () => {
+            document.removeEventListener('keydown', closeOnEsc);
+        }
+    })
 
-  return ReactDOM.createPortal(
-    <>
-      <ModalOverlay closePopup={closePopup} />
-      <div className={style.modal}>
-        <button onClick={closePopup} className={style.btn}>
-          <CloseIcon />
-        </button>
-        {children}
-      </div>
-    </>,
-    root
-  );
-}
-
-Modal.propTypes = {
-  children: PropTypes.element.isRequired,
-  closePopup: PropTypes.func.isRequired,
+    return ReactDOM.createPortal(
+        <>
+            <ModalOverlay closePopup={closePopup} />
+            <div className={style.modal}>
+                <button onClick={closePopup} className={style.btn}>
+                    <CloseIcon />
+                </button>
+                {children}
+            </div>
+        </>,
+        root
+    );
 };
 
-export default Modal;
+Modal.propTypes = {
+    children: PropTypes.element.isRequired,
+    closePopup: PropTypes.func.isRequired,
+  }
+
+export default Modal
