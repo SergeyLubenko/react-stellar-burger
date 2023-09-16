@@ -19,7 +19,7 @@ function BurgerIngredients() {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
-  const { ingredients, ingredientsError } = useSelector(
+  const { ingredients, error } = useSelector(
     (store) => store.ingredients
   );
 
@@ -80,7 +80,7 @@ function BurgerIngredients() {
             Начинки
           </Tab>
         </div>
-        {ingredientsError ? (
+        {error ? (
           <span className={`${style.error} text text_type_main-default`}>
             Ошибка загрузки данных. Попробуйте перезагрузить страницу.
           </span>

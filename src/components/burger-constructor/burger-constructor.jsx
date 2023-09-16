@@ -9,7 +9,7 @@ import DraggableIngredient from "../draggable-ingredient/draggable-ingredient";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details ";
 import { useSelector, useDispatch } from "react-redux";
-import { hideOrderModal , submit} from "../../services/orderSlice";
+import { orderModal , submit} from "../../services/orderSlice";
 import { v4 as uuid } from "uuid";
 import { useDrop } from "react-dnd";
 import {
@@ -35,7 +35,7 @@ function BurgerConstructor() {
   };
 
   const handleCloseModal = () => {
-    dispatch(hideOrderModal());
+    dispatch(orderModal());
     dispatch(clearOrder());
   };
 
@@ -74,7 +74,7 @@ function BurgerConstructor() {
   });
 
   // Сортировка ингредиентов при перетаскивании
-  const moveItem = useCallback(
+  const sortingItem = useCallback(
     (dragIndex, hoverIndex) => {
       const dragItem = ingredients[dragIndex];
       const newOrder = [...ingredients];
@@ -109,7 +109,7 @@ function BurgerConstructor() {
               <li key={item.id}>
                 <DraggableIngredient
                   item={item}
-                  moveItem={moveItem}
+                  moveItem={sortingItem}
                   key={item.id}
                 />
               </li>

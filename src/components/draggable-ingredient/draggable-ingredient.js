@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
 import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import draggableStyles from './draggable-ingredient.module.css';
+import style from './draggable-ingredient.module.css';
 import { deleteIngredient } from "../../services/constructorSlice";
 
 
-const DraggableIngredient = ({ item, moveItem }) => {
+const DraggableIngredient = ({ item, sortingItem }) => {
     
     const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ const DraggableIngredient = ({ item, moveItem }) => {
         })
     })
 
-    const opacity = isDragging ? .5 : 1;
+    const opacity = isDragging ? .7 : 1;
 
     // Перетаскивание --- drop
     const [{ handlerId }, drop] = useDrop({
@@ -65,20 +65,20 @@ const DraggableIngredient = ({ item, moveItem }) => {
                 return;
             }
 
-            moveItem(dragIndex, hoverIndex);
+            sortingItem(dragIndex, hoverIndex);
             item.index = hoverIndex;
         }
     })
 
 
-    const dragDropRef = drag(drop(ref));
+    const dragAndDrop = drag(drop(ref));
 
     return (
         <>
             <div
-                className={draggableStyles.item}
+                className={style.item}
                 style={{ opacity }}
-                ref={dragDropRef}
+                ref={dragAndDrop}
                 data-handler-id={handlerId}
             >
                 <DragIcon type="primary" />

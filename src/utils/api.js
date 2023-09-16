@@ -24,7 +24,7 @@ const getDataIngredients = () => {
     });
 };
 
-const postOrder = (order, options = {}) => {
+const postOption = (order, options = {}) => {
   return fetch(`${config.orderUrl}`, {
     method: "POST",
     headers: config.headers,
@@ -37,4 +37,4 @@ const postOrder = (order, options = {}) => {
     });
 };
 
-export { getDataIngredients, postOrder };
+export { getDataIngredients, postOption };
