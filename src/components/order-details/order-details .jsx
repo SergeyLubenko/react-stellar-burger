@@ -1,15 +1,18 @@
 import style from "./order-details.module.css";
 import img from "../../images/img.svg";
+import { useSelector } from "react-redux";
 
 function OrderDetails() {
+  const { number } = useSelector((store) => store.order);
+
   return (
     <>
       <ul className={style.orderDetails}>
         <li className={style.li}>
           <p className={`${style.number} text text_type_digits-large pb-5`}>
-            034536
+            {number}
           </p>
-          <p className="text text_type_main-medium pt-8">
+          <p className="text text_type_main-medium pt-3">
             идентификатор заказа
           </p>
         </li>
