@@ -109,7 +109,7 @@ function BurgerConstructor() {
               <li key={item.id}>
                 <DraggableIngredient
                   item={item}
-                  moveItem={sortingItem}
+                  sortingItem={sortingItem}
                   key={item.id}
                 />
               </li>
