@@ -14,7 +14,7 @@ const DraggableIngredient = ({ item, sortingItem }) => {
         (store) => store.userBurgerIngredients,
     );
 
-    const { _id, name, price, image } = item
+    const {  name, price, image } = item
 
 
     const ref = useRef(null);

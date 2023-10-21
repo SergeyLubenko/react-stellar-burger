@@ -19,7 +19,7 @@ import {
       (i) => i?._id === _id
     ).length;
   
-    const [ isDrag , dragRef] = useDrag({
+    const [ , dragRef] = useDrag({
       type: "item",
       item: { ...item },
       collect: (monitor) => ({
@@ -33,7 +33,6 @@ import {
           className={style.li}
           onClick={() => current(item)}
           ref={dragRef}
-          style={{ isDrag }}
           id={_id}
         >
           {!!counter && (

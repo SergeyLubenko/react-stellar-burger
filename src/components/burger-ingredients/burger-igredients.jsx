@@ -47,7 +47,7 @@ function BurgerIngredients() {
     [ingredients]
   );
 
-  const [current, setCurrent] = useState("bun");
+  const [, setCurrent] = useState("bun");
 
   const tabs = {
     bun: document.querySelector("#bun"),
