@@ -1,0 +1,14 @@
+.li {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding-right: 24px;
+}
+
+.price {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+}
