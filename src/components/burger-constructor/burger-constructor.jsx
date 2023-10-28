@@ -1,4 +1,4 @@
-import style from "./burger-constructor.module.css";
+import styles from "./burger-constructor.module.css";
 import {
   CurrencyIcon,
   ConstructorElement,
@@ -7,9 +7,10 @@ import {
 import { useMemo, useCallback } from "react";
 import DraggableIngredient from "../draggable-ingredient/draggable-ingredient";
 import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details ";
+import OrderDetails from "../order-details/order-details";
 import { useSelector, useDispatch } from "react-redux";
-import { orderModal , submit} from "../../services/orderSlice";
+import { orderModal } from "../../services/orderSlice";
+import { submit } from "../../services/orderSlice";
 import { v4 as uuid } from "uuid";
 import { useDrop } from "react-dnd";
 import {
@@ -17,21 +18,28 @@ import {
   clearOrder,
   updateIngredients,
 } from "../../services/constructorSlice";
+import { useNavigate } from "react-router";
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { ingredients, bun } = useSelector(
     (store) => store.userBurgerIngredients
   );
 
+  const { orderError } = useSelector((store) => store.order);
 
   const { isOpen } = useSelector((state) => state.order);
 
   const cart = { ingredients, bun };
 
   const handleOpenModal = async () => {
-    await dispatch(submit(cart));
+    if (localStorage.getItem("accessToken")) {
+      dispatch(submit(cart));
+    } else {
+      navigate("/login");
+    }
   };
 
   const handleCloseModal = () => {
@@ -73,7 +81,6 @@ function BurgerConstructor() {
     },
   });
 
-  // Сортировка ингредиентов при перетаскивании
   const sortingItem = useCallback(
     (dragIndex, hoverIndex) => {
       const dragItem = ingredients[dragIndex];
@@ -86,71 +93,74 @@ function BurgerConstructor() {
   );
 
   return (
-    <>
-      <section
-        className={` ${style.burgerConstructor} pt-5 pl-4 pr-4`}
-        ref={dropTarget}
-      >
-        <div className={` ${style.buns} pb-5 pr-7`}>
-          {bun && (
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={`${bun.name} (верх)`}
-              price={bun.price}
-              thumbnail={bun.image}
-              bun={bun}
-            />
-          )}
-        </div>
-        <div className={`custom-scroll thin_scroll ${style.scroll}`}>
-          <ul className={style.list}>
-            {ingredients.map((item) => (
-              <li key={item.id}>
-                <DraggableIngredient
-                  item={item}
-                  sortingItem={sortingItem}
-                  key={item.id}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={` ${style.buns} pb-5 pr-7 pt-5`}>
-          {bun && (
-            <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={`${bun.name} (низ)`}
-              price={bun.price}
-              thumbnail={bun.image}
-              bun={bun}
-            />
-          )}
-        </div>
-        <div className={`pt-10 pr-8 ${style.order}`}>
-          <div className={style.price}>
-            <p className="text text_type_digits-medium pr-2">{price}</p>
-            <CurrencyIcon type="primary" />
-          </div>
-          <Button
-            htmlType="button"
-            type="primary"
-            size="large"
-            onClick={handleOpenModal}
-            disabled={isDisabled}
-          >
-            Оформить заказ
-          </Button>
-          {isOpen && (
-          <Modal closePopup={handleCloseModal}>
-            <OrderDetails />
-          </Modal>
+    <section
+      className={` ${styles.burgerConstructor} pt-5 pl-4 pr-4`}
+      ref={dropTarget}
+    >
+      <div className={` ${styles.buns} pb-5 pr-7`}>
+        {bun && (
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
+            bun={bun}
+          />
         )}
-
+      </div>
+      <div className={`custom-scroll thin_scroll ${styles.scroll}`}>
+        <ul className={styles.list}>
+          {ingredients.map((item) => (
+            <li key={item.id}>
+              <DraggableIngredient
+                item={item}
+                sortingItem={sortingItem}
+                key={item.id}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={` ${styles.buns} pb-5 pr-7 pt-5`}>
+        {bun && (
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
+            bun={bun}
+          />
+        )}
+      </div>
+      <div className={`pt-10 pr-8 ${styles.order}`}>
+        <div className={styles.price}>
+          <p className="text text_type_digits-medium pr-2">{price}</p>
+          <CurrencyIcon type="primary" />
         </div>
-      </section>
-    </>
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          onClick={handleOpenModal}
+          disabled={isDisabled}
+        >
+          Оформить заказ
+        </Button>
+        {orderError ? (
+          <span className={`${styles.error} text text_type_main-default`}>
+            Ошибка загрузки данных!
+          </span>
+        ) : (
+          isOpen && (
+            <Modal onClose={handleCloseModal}>
+              <OrderDetails />
+            </Modal>
+          )
+        )}
+      </div>
+    </section>
   );
 }
 

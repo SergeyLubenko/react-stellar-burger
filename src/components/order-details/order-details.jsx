@@ -1,4 +1,4 @@
-import style from "./order-details.module.css";
+import styles from "./order-details.module.css";
 import img from "../../images/img.svg";
 import { useSelector } from "react-redux";
 
@@ -7,19 +7,19 @@ function OrderDetails() {
 
   return (
     <>
-      <ul className={style.orderDetails}>
-        <li className={style.li}>
-          <p className={`${style.number} text text_type_digits-large pb-5`}>
+      <ul className={styles.orderDetails}>
+        <li className={styles.li}>
+          <p className={`${styles.number} text text_type_digits-large pb-5`}>
             {number}
           </p>
           <p className="text text_type_main-medium pt-3">
             идентификатор заказа
           </p>
         </li>
-        <li className={style.li}>
+        <li className={styles.li}>
           <img src={img} alt="Иконка с галочкой"></img>
         </li>
-        <li className={style.li}>
+        <li className={styles.li}>
           <p className="text text_type_main-default">
             Ваш заказ начали готовить
           </p>

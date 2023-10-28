@@ -22,10 +22,15 @@
   display: flex;
   gap: 8px;
   justify-content: center;
-  
 }
 
 .title {
   height: 48px;
   text-align: center;
+}
+
+.link {
+  background: inherit;
+  color: inherit;
+  text-decoration: none;
 }

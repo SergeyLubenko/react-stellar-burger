@@ -1,33 +1,37 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   ingredients: [],
-  bun: null
+  bun: null,
 };
 
 export const constructorSlice = createSlice({
-  name: 'userBurgerIngredients',
+  name: "userBurgerIngredients",
   initialState,
   reducers: {
     addIngredient(state, { payload }) {
-      if (payload.type === 'bun') {
-        state.bun = payload
+      if (payload.type === "bun") {
+        state.bun = payload;
       } else {
-        state.ingredients = [...state.ingredients, payload]
+        state.ingredients = [...state.ingredients, payload];
       }
     },
     deleteIngredient(state, { payload: id }) {
-      state.ingredients = state.ingredients.filter(item => item.id !== id)
+      state.ingredients = state.ingredients.filter((item) => item.id !== id);
     },
     updateIngredients(state, { payload }) {
-      state.ingredients = payload
+      state.ingredients = payload;
     },
     clearOrder() {
-      return initialState
-    }
-  }
-})
-
+      return initialState;
+    },
+  },
+});
 
 export default constructorSlice.reducer;
-export const { addIngredient, deleteIngredient, updateIngredients, clearOrder } = constructorSlice.actions
+export const {
+  addIngredient,
+  deleteIngredient,
+  updateIngredients,
+  clearOrder,
+} = constructorSlice.actions;

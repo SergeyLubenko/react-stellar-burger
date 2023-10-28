@@ -1,96 +1,93 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
-import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import style from './draggable-ingredient.module.css';
+import {
+  DragIcon,
+  ConstructorElement,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./draggable-ingredient.module.css";
 import { deleteIngredient } from "../../services/constructorSlice";
 
-
 const DraggableIngredient = ({ item, sortingItem }) => {
-    
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const { ingredients } = useSelector(
-        (store) => store.userBurgerIngredients,
-    );
+  const { ingredients } = useSelector((store) => store.userBurgerIngredients);
 
-    const {  name, price, image } = item
+  const { name, price, image } = item;
 
+  const ref = useRef(null);
+  const index = ingredients.indexOf(item);
 
-    const ref = useRef(null);
-    const index = ingredients.indexOf(item);
+  // Перетаскивание  --- drag
+  const [{ isDragging }, drag] = useDrag({
+    type: "constructor",
+    item: () => ({ id: item._id, index }),
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
 
-    // Перетаскивание  --- drag
-    const [{ isDragging }, drag] = useDrag({
-        type: 'constructor',
-        item: () => ({ id: item._id, index }),
-        collect: monitor => ({
-            isDragging: monitor.isDragging()
-        })
-    })
+  const opacity = isDragging ? 0.7 : 1;
+  // Перетаскивание --- drop
+  const [{ handlerId }, drop] = useDrop({
+    accept: "constructor",
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
+    hover(item, monitor) {
+      if (!ref.current) {
+        return;
+      }
 
-    const opacity = isDragging ? .7 : 1;
+      const dragIndex = item.index;
+      const hoverIndex = index;
 
-    // Перетаскивание --- drop
-    const [{ handlerId }, drop] = useDrop({
-        accept: 'constructor',
-        collect(monitor) {
-            return {
-                handlerId: monitor.getHandlerId()
-            }
-        },
-        hover(item, monitor) {
-            if (!ref.current) {
-                return;
-            }
+      if (dragIndex === hoverIndex) {
+        return;
+      }
 
-            const dragIndex = item.index;
-            const hoverIndex = index;
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
 
-            if (dragIndex === hoverIndex) {
-                return;
-            }
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
-            const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
 
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top);
-            const clientOffset = monitor.getClientOffset();
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
 
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-                return;
-            }
+      sortingItem(dragIndex, hoverIndex);
+      item.index = hoverIndex;
+    },
+  });
 
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-                return;
-            }
+  const dragDropRef = drag(drop(ref));
 
-            sortingItem(dragIndex, hoverIndex);
-            item.index = hoverIndex;
-        }
-    })
+  return (
+    <>
+      <div
+        className={styles.item}
+        style={{ opacity }}
+        ref={dragDropRef}
+        data-handler-id={handlerId}
+      >
+        <DragIcon type="primary" />
+        <ConstructorElement
+          text={name}
+          price={price}
+          thumbnail={image}
+          handleClose={() => dispatch(deleteIngredient(item.id))}
+        />
+      </div>
+    </>
+  );
+};
 
-
-    const dragAndDrop = drag(drop(ref));
-
-    return (
-        <>
-            <div
-                className={style.item}
-                style={{ opacity }}
-                ref={dragAndDrop}
-                data-handler-id={handlerId}
-            >
-                <DragIcon type="primary" />
-                <ConstructorElement
-                    text={name}
-                    price={price}
-                    thumbnail={image}
-                    handleClose={() => dispatch(deleteIngredient(item.id))}
-                />
-            </div>
-        </>
-    )
-}
-
-export default DraggableIngredient
+export default DraggableIngredient;
